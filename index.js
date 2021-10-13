@@ -1,7 +1,24 @@
 const inquirer = require("inquirer");
+const fs = require("fs");
+const path = require("path");
+const HTMLgenerator = require("./src/html-generator");
+
+const pathDir = path.resolve(__dirname, "dist");
+const htmlFile = path.join(pathDir, "index.html");
+
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+const Manager = require("./lib/Manager");
+
+inquirer.registerPrompt("search-list", require("inquirer-search-list"));
+
 const employees = [];
 
 const addEmployee = async function (role) {
+  const managers = employees.filter((obj) => obj.role === "Manager");
+  if (!managers.includes("no manager")) {
+    managers.push("no manager");
+  }
   let newEmployee = await inquirer.prompt([
     {
       type: "input",
@@ -36,12 +53,23 @@ const addEmployee = async function (role) {
       message: "What is this manager's office number?:",
       when: role === "Manager",
     },
+    {
+      type: "search-list",
+      name: "manager",
+      message: "Who is this employee's manager? ",
+      when: role != "Manager",
+      choices: managers,
+    },
   ]);
   newEmployee.role = role;
-  console.log(newEmployee);
+  //   console.log(newEmployee);
   employees.push(newEmployee);
   console.log(employees);
   continuePrompts();
+};
+
+const generatePage = function () {
+  fs.writeFileSync(htmlFile, HTMLgenerator(employees), "utf-8");
 };
 
 const continuePrompts = async function () {
@@ -54,7 +82,12 @@ const continuePrompts = async function () {
     },
   ]);
   if (askAgain.role === "I'm done") {
-    console.log("done");
+    if (employees.length === 0) {
+      console.log("No HTML page generated.");
+    } else {
+      await generatePage();
+      console.log("done");
+    }
   } else {
     addEmployee(askAgain.role);
   }
