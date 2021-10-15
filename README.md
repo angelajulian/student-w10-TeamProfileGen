@@ -2,7 +2,10 @@
 
 ### Video Walkthrough:
 
-https://github.com/angelajulian/student-w10-TeamProfileGen/blob/main/Screen%20Recording%202021-10-15%20at%202.16.37%20PM.mov
+[![Walkthrough Video]("https://github.com/angelajulian/student-w10-TeamProfileGen/blob/main/Screen%20Recording%202021-10-15%20at%202.16.37%20PM.mov")
+
+
+
 
 # Description
 
