@@ -65,7 +65,7 @@ const addEmployee = async function (role) {
   newEmployee.role = role;
   //   console.log(newEmployee);
   employees.push(newEmployee);
-  console.log(employees);
+  // console.log(employees);
   continuePrompts();
 };
 
@@ -104,7 +104,7 @@ const setObj = async function (teamList) {
     }
     await newTeamList.push(employee);
   }
-  console.log(newTeamList);
+  // console.log(newTeamList);
   return newTeamList;
 };
 
@@ -119,11 +119,11 @@ const continuePrompts = async function () {
   ]);
   if (askAgain.role === "I'm done") {
     if (employees.length === 0) {
-      console.log("No HTML page generated.");
+      // console.log("No HTML page generated.");
     } else {
       objEmployees = await setObj(employees);
       await generatePage();
-      console.log("done");
+      // console.log("done");
     }
   } else {
     await addEmployee(askAgain.role);
