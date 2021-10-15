@@ -2,6 +2,8 @@
 
 ### Video Walkthrough:
 
+https://github.com/angelajulian/student-w10-TeamProfileGen/blob/main/Screen%20Recording%202021-10-15%20at%202.16.37%20PM.mov
+
 # Description
 
 - This terminal application allows the user to create a 1 page team profile for their team.
