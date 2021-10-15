@@ -2,12 +2,19 @@ const Intern = require("../lib/Intern.js");
 
 describe("Intern Test", () => {
   it("Add intern", () => {
-    const intern = new Intern("Greag Brown", 123, "gb@mail.com", "csu");
+    const intern = new Intern(
+      "Greag Brown",
+      123,
+      "gb@mail.com",
+      "csu",
+      "manager"
+    );
 
     expect(intern.name).toEqual(expect.any(String));
     expect(intern.id).toEqual(expect.any(Number));
     expect(intern.email).toEqual(expect.any(String));
     expect(intern.school).toEqual(expect.any(String));
+    expect(intern.manager).toEqual(expect.any(String));
   });
 
   it("Get intern name", () => {

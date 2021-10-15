@@ -96,7 +96,6 @@ renderTeam = function (teams) {
 <script src="https://kit.fontawesome.com/c502137733.js"></script>
 </head>
 <body>
-<div class="container-fluid">
 
             ${teams}
 
@@ -108,45 +107,25 @@ renderTeam = function (teams) {
 setTeam = function (team) {
   let pageHTML = [];
   let teamHtml = [];
-
+  console.log("pageHTML is : " + pageHTML + "team HTML is:" + teamHtml);
+  console.log(team);
   for (let i = 0; i < team.length; i++) {
     const employee = team[i];
     if (employee.getRole() === "Manager") {
       const man = setManager(employee);
       teamHtml.push(man);
-      for (let j = 0; j < team.length; j++) {
-        if (employee.manager === manager.name) {
-          if (employee.getRole() === "Engineer") {
-            const engineer = setEngineer(employee);
-            teamHtml.push(engineer);
-          }
-          if (employee.getRole() === "Intern") {
-            const intern = setIntern(employee);
-            teamHtml.push(intern);
-          }
-        }
-      }
-      pageHTML.push(teamHtml.join(""));
-    } else if (employee.manager === "no manager") {
-      const man = setManager(employee);
-      teamHtml.push(man);
-      for (let j = 0; j < team.length; j++) {
-        if (employee.manager === manager.name) {
-          if (employee.getRole() === "Engineer") {
-            const engineer = setEngineer(employee);
-            teamHtml.push(engineer);
-          }
-          if (employee.getRole() === "Intern") {
-            const intern = setIntern(employee);
-            teamHtml.push(intern);
-          }
-        }
-      }
+    } else if (employee.getRole() === "Engineer") {
+      const engineer = setEngineer(employee);
+      teamHtml.push(engineer);
+    } else if (employee.getRole() === "Intern") {
+      const intern = setIntern(employee);
+      teamHtml.push(intern);
     }
+
     pageHTML.push(teamHtml.join(""));
   }
 
-  return renderTeam(pageHTML.join(""));
+  return renderTeam(createTeamColumn(pageHTML.join("")));
 };
 
 module.exports = setTeam;

@@ -12,7 +12,8 @@ const Manager = require("./lib/Manager");
 
 inquirer.registerPrompt("search-list", require("inquirer-search-list"));
 
-const employees = [];
+let employees = [];
+let objEmployees = [];
 
 const addEmployee = async function (role) {
   const managers = employees.filter((obj) => obj.role === "Manager");
@@ -69,7 +70,42 @@ const addEmployee = async function (role) {
 };
 
 const generatePage = function () {
-  fs.writeFileSync(htmlFile, HTMLgenerator(employees), "utf-8");
+  fs.writeFileSync(htmlFile, HTMLgenerator(objEmployees), "utf-8");
+};
+
+const setObj = async function (teamList) {
+  let newTeamList = [];
+  for (i = 0; i < teamList.length; i++) {
+    let employee;
+    let teamI = teamList[i];
+    if (teamI.role === "Manager") {
+      employee = await new Manager(
+        teamI.name,
+        teamI.id,
+        teamI.email,
+        teamI.officeNumber
+      );
+    } else if (teamI.role === "Engineer") {
+      employee = await new Engineer(
+        teamI.name,
+        teamI.id,
+        teamI.email,
+        teamI.github,
+        teamI.manager
+      );
+    } else if (teamI.role === "Intern") {
+      employee = await new Intern(
+        teamI.name,
+        teamI.id,
+        teamI.email,
+        teamI.school,
+        teamI.manager
+      );
+    }
+    await newTeamList.push(employee);
+  }
+  console.log(newTeamList);
+  return newTeamList;
 };
 
 const continuePrompts = async function () {
@@ -85,11 +121,12 @@ const continuePrompts = async function () {
     if (employees.length === 0) {
       console.log("No HTML page generated.");
     } else {
+      objEmployees = await setObj(employees);
       await generatePage();
       console.log("done");
     }
   } else {
-    addEmployee(askAgain.role);
+    await addEmployee(askAgain.role);
   }
 };
 

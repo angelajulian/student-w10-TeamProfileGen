@@ -2,12 +2,19 @@ const Engineer = require("../lib/Engineer.js");
 
 describe("Engineer Test", () => {
   it("Add engineer", () => {
-    const engineer = new Engineer("Greag Brown", 123, "gb@mail.com", "gbrown");
+    const engineer = new Engineer(
+      "Greag Brown",
+      123,
+      "gb@mail.com",
+      "gbrown",
+      "manager"
+    );
 
     expect(engineer.name).toEqual(expect.any(String));
     expect(engineer.id).toEqual(expect.any(Number));
     expect(engineer.email).toEqual(expect.any(String));
     expect(engineer.github).toEqual(expect.any(String));
+    expect(engineer.manager).toEqual(expect.any(String));
   });
 
   it("Get engineer name", () => {
@@ -37,6 +44,6 @@ describe("Engineer Test", () => {
   it("Get engineer github", () => {
     const engineer = new Engineer("Greag Brown", 123, "gb@mail.com", "gbrown");
 
-    expect(engineer.getGitHub()).toEqual("csu");
+    expect(engineer.getGithub()).toEqual("gbrown");
   });
 });
